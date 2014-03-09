@@ -8,7 +8,9 @@ test: $(LINT_SRC)
 		--show-non-errors
 
 client:
-	@node_modules/.bin/browserify client-src/app.js > ./public/js/app.js
+	@node_modules/.bin/browserify \
+		--transform browserify-handlebars \
+		client-src/app.js > ./public/js/app.js
 
 .PONY: test
 .PONY: client

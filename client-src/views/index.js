@@ -5,12 +5,14 @@ module.exports = function (_, $, Backbone) {
 
   views.Index = Backbone.View.extend({
     el: '#content',
+    template: require('../templates/index.handlebars'),
     initialize: function() {
-      this.$el.append($('<h2>', { text: 'Hello World!' }));
+      this.render();
+    },
+    render: function() {
+      this.$el.html(this.template({ text: 'Hello World!' }));
     }
   });
-
-  // TODO: bootstrap other views.
 
   return views;
 };
