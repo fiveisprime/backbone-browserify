@@ -1,9 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var Backbone = require('backbone')
-  , _        = require('underscore')
-  , $        = require('jquery');
+var Backbone = require('backbone');
+var _        = require('underscore');
+var $        = require('jquery');
 
 Backbone.$ = $;
 
@@ -21,8 +21,8 @@ module.exports = function (_, $, Backbone, views) {
   var Router = Backbone.Router.extend({
     routes: {
       '': 'index'
-    }
-  , index: function () {
+    },
+    index: function () {
       return new views.Index();
     }
   });
@@ -37,8 +37,8 @@ module.exports = function (_, $, Backbone) {
   var views = {};
 
   views.Index = Backbone.View.extend({
-    el: '#content'
-  , initialize: function () {
+    el: '#content',
+    initialize: function() {
       this.$el.append($('<h2>', { text: 'Hello World!' }));
     }
   });
