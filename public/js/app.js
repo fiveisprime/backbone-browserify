@@ -57,11 +57,9 @@ module.exports = function (_, $, Backbone) {
       this.render();
     },
     render: function() {
-      this.$el.html(this.template({ text: 'Hello World!' }));
+      this.$el.html(this.template({ text: 'Hello from Browserify!' }));
     }
   });
-
-  // TODO: bootstrap other views.
 
   return views;
 };

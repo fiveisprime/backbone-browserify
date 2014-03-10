@@ -1,6 +1,7 @@
-LINT_SRC = index.js $(wildcard client-src/*.js) $(wildcard client-src/views/*.js)
+LINT_SRC = index.js $(wildcard client-src/*.js) \
+	$(wildcard client-src/views/*.js)
 
-all: test client
+all: test client minify
 
 test: $(LINT_SRC)
 	@node_modules/.bin/jshint $^ \
@@ -9,8 +10,16 @@ test: $(LINT_SRC)
 
 client:
 	@node_modules/.bin/browserify \
+		--entry client-src/app.js \
 		--transform browserify-handlebars \
-		client-src/app.js > ./public/js/app.js
+		--outfile public/js/app.js
 
+minify:
+	@node_modules/.bin/uglifyjs public/js/app.js \
+		--mangle \
+		--output public/js/app.min.js
+
+.PONY: all
 .PONY: test
 .PONY: client
+.PONY: minify
