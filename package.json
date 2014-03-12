@@ -4,6 +4,7 @@
   "description": "Playing with Backbone and Browserify.",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
     "test": "make test"
   },
   "author": "Matt Hernandez <matt@modulus.io>",
