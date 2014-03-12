@@ -7,23 +7,27 @@ var $        = require('jquery');
 
 Backbone.$ = $;
 
-var views = require('./views')(_, $, Backbone);
+var views = require('./views')(_, Backbone);
 
 // Start the router.
-require('./router')(_, $, Backbone, views);
+require('./router')(Backbone, views);
 
 Backbone.history.start();
 
-},{"./router":2,"./views":4,"backbone":5,"jquery":13,"underscore":14}],2:[function(require,module,exports){
-module.exports = function (_, $, Backbone, views) {
+},{"./router":2,"./views":6,"backbone":7,"jquery":15,"underscore":16}],2:[function(require,module,exports){
+module.exports = function (Backbone, views) {
   'use strict';
 
   var Router = Backbone.Router.extend({
     routes: {
-      '': 'index'
+      '': 'index',
+      'about': 'about'
     },
     index: function () {
       return new views.Index();
+    },
+    about: function() {
+      return new views.About();
     }
   });
 
@@ -34,6 +38,15 @@ module.exports = function (_, $, Backbone, views) {
 var templater = require("handlebars/runtime").default.template;module.exports = templater(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<h2>About</h2>\n<p>\n  This is an experiment using Browserify to build a very simple Backbone\n  application.\n</p>\n<div class=\"sub\"></div>\n";
+  });
+},{"handlebars/runtime":14}],4:[function(require,module,exports){
+var templater = require("handlebars/runtime").default.template;module.exports = templater(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
@@ -41,11 +54,31 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.text) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = (depth0 && depth0.text); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</h2>\n";
+    + "</h2>\n<p>";
+  if (stack1 = helpers.message) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = (depth0 && depth0.message); stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash:{},data:data}) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</p>\n<a href=\"/#/about\">About</a>\n";
   return buffer;
   });
-},{"handlebars/runtime":12}],4:[function(require,module,exports){
-module.exports = function (_, $, Backbone) {
+},{"handlebars/runtime":14}],5:[function(require,module,exports){
+module.exports = function(_, Backbone, views) {
+  'use strict';
+
+  views.About = Backbone.View.extend({
+    el: '#content',
+    template: require('../templates/about.handlebars'),
+    initialize: function() {
+      this.render();
+    },
+    render: function() {
+      this.$el.html(this.template());
+    }
+  });
+};
+
+},{"../templates/about.handlebars":3}],6:[function(require,module,exports){
+module.exports = function (_, Backbone) {
   'use strict';
 
   var views = {};
@@ -57,14 +90,20 @@ module.exports = function (_, $, Backbone) {
       this.render();
     },
     render: function() {
-      this.$el.html(this.template({ text: 'Hello from Browserify!' }));
+      this.$el.html(this.template({
+        text: 'Hello from Browserify!',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.'
+      }));
     }
   });
+
+  // Bootstrap the about view.
+  require('./about')(_, Backbone, views);
 
   return views;
 };
 
-},{"../templates/index.handlebars":3}],5:[function(require,module,exports){
+},{"../templates/index.handlebars":4,"./about":5}],7:[function(require,module,exports){
 //     Backbone.js 1.1.2
 
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -1674,7 +1713,7 @@ module.exports = function (_, $, Backbone) {
 
 }));
 
-},{"underscore":14}],6:[function(require,module,exports){
+},{"underscore":16}],8:[function(require,module,exports){
 "use strict";
 /*globals Handlebars: true */
 var base = require("./handlebars/base");
@@ -1707,7 +1746,7 @@ var Handlebars = create();
 Handlebars.create = create;
 
 exports["default"] = Handlebars;
-},{"./handlebars/base":7,"./handlebars/exception":8,"./handlebars/runtime":9,"./handlebars/safe-string":10,"./handlebars/utils":11}],7:[function(require,module,exports){
+},{"./handlebars/base":9,"./handlebars/exception":10,"./handlebars/runtime":11,"./handlebars/safe-string":12,"./handlebars/utils":13}],9:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -1888,7 +1927,7 @@ exports.log = log;var createFrame = function(object) {
   return obj;
 };
 exports.createFrame = createFrame;
-},{"./exception":8,"./utils":11}],8:[function(require,module,exports){
+},{"./exception":10,"./utils":13}],10:[function(require,module,exports){
 "use strict";
 
 var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
@@ -1905,7 +1944,7 @@ function Exception(/* message */) {
 Exception.prototype = new Error();
 
 exports["default"] = Exception;
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -2043,7 +2082,7 @@ exports.program = program;function invokePartial(partial, name, context, helpers
 exports.invokePartial = invokePartial;function noop() { return ""; }
 
 exports.noop = noop;
-},{"./base":7,"./exception":8,"./utils":11}],10:[function(require,module,exports){
+},{"./base":9,"./exception":10,"./utils":13}],12:[function(require,module,exports){
 "use strict";
 // Build out our basic SafeString type
 function SafeString(string) {
@@ -2055,7 +2094,7 @@ SafeString.prototype.toString = function() {
 };
 
 exports["default"] = SafeString;
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 "use strict";
 /*jshint -W004 */
 var SafeString = require("./safe-string")["default"];
@@ -2132,12 +2171,12 @@ exports.escapeExpression = escapeExpression;function isEmpty(value) {
 }
 
 exports.isEmpty = isEmpty;
-},{"./safe-string":10}],12:[function(require,module,exports){
+},{"./safe-string":12}],14:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime');
 
-},{"./dist/cjs/handlebars.runtime":6}],13:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":8}],15:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.0
  * http://jquery.com/
@@ -11250,7 +11289,7 @@ return jQuery;
 
 }));
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

@@ -1,12 +1,16 @@
-module.exports = function (_, $, Backbone, views) {
+module.exports = function (Backbone, views) {
   'use strict';
 
   var Router = Backbone.Router.extend({
     routes: {
-      '': 'index'
+      '': 'index',
+      'about': 'about'
     },
     index: function () {
       return new views.Index();
+    },
+    about: function() {
+      return new views.About();
     }
   });
 
