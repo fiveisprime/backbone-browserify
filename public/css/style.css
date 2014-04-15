@@ -1,10 +1,10 @@
 body {
-   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
    font-weight: 300;
    font-size: 16px;
 }
 
-[role=main] {
+[role="main"] {
   margin-top: 40px;
 }
 
@@ -13,7 +13,7 @@ a {
 }
 
 @media screen and (max-width : 480px) {
-  [role=main] {
+  [role="main"] {
     margin-top: 10px;
   }
 }

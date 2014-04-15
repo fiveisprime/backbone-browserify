@@ -19,4 +19,6 @@ app.get('/', function (req, res) {
   res.sendfile('server/views/index.html');
 });
 
+require('./server/models')(app);
+
 http.createServer(app).listen(app.get('port'));

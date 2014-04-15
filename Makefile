@@ -1,9 +1,8 @@
-LINT_SRC = index.js $(wildcard client-src/*.js) \
-	$(wildcard client-src/views/*.js)
+SRC = index.js $(wildcard client-src/*.js) $(wildcard client-src/views/*.js)
 
 all: test client minify
 
-test: $(LINT_SRC)
+test: $(SRC)
 	@node_modules/.bin/jshint $^ \
 		--verbose \
 		--show-non-errors

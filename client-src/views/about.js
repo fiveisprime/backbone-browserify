@@ -1,13 +1,13 @@
-module.exports = function(_, Backbone, views) {
+module.exports = function (_, Backbone, Views) {
   'use strict';
 
-  views.About = Backbone.View.extend({
+  Views.About = Backbone.View.extend({
     el: '#content',
     template: require('../templates/about.handlebars'),
-    initialize: function() {
+    initialize: function () {
       this.render();
     },
-    render: function() {
+    render: function () {
       this.$el.html(this.template());
     }
   });

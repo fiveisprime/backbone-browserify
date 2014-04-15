@@ -1,24 +1,25 @@
-module.exports = function (_, Backbone) {
+module.exports = function (_, Backbone, Models) {
   'use strict';
 
-  var views = {};
+  var Views = {};
 
-  views.Index = Backbone.View.extend({
+  Views.Index = Backbone.View.extend({
     el: '#content',
     template: require('../templates/index.handlebars'),
     initialize: function() {
-      this.render();
+      this.colors = new Models.Colors();
+      this.colors.fetch({ success: _.bind(this.render, this) });
     },
     render: function() {
       this.$el.html(this.template({
-        text: 'Hello from Browserify!',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed.'
+        intro  : 'Hello from Browserify!',
+        colors : this.colors.toJSON()
       }));
     }
   });
 
-  // Bootstrap the about view.
-  require('./about')(_, Backbone, views);
+  // Bootstrap other views.
+  require('./about')(_, Backbone, Views);
 
-  return views;
+  return Views;
 };

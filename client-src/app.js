@@ -6,9 +6,10 @@ var $        = require('jquery');
 
 Backbone.$ = $;
 
-var views = require('./views')(_, Backbone);
+var Models = require('./models')(Backbone);
+var Views = require('./views')(_, Backbone, Models);
 
 // Start the router.
-require('./router')(Backbone, views);
+require('./router')(Backbone, Views);
 
 Backbone.history.start();
