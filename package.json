@@ -2,6 +2,8 @@
   "name": "backbone-browserify",
   "version": "0.0.0",
   "description": "Playing with Backbone and Browserify.",
+  "repository": "fiveisprime/backbone-browserify",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "node .",
