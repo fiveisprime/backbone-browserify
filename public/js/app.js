@@ -32,7 +32,9 @@ module.exports = function (Backbone) {
   });
 
   //
-  // Bootstrap other models.
+  // Bootstrap other models. Pass around the Models object so other models
+  //    can attach to it.
+  //
   // require('./user')(Models);
   //
 
@@ -66,7 +68,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<h2>About</h2>\n<p>\n  This is an experiment using Browserify to build a very simple Backbone\n  application.\n</p>\n<div class=\"sub\"></div>\n";
+  return "<h2>About</h2>\n<p>\n  This is an experiment using Browserify to build a very simple Backbone\n  application.\n</p>\n";
   });
 },{"handlebars/runtime":15}],5:[function(require,module,exports){
 var templater = require("handlebars/runtime").default.template;module.exports = templater(function (Handlebars,depth0,helpers,partials,data) {
