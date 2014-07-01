@@ -1,15 +1,18 @@
-module.exports = function (app) {
+module.exports = function () {
+  var models = require('express').Router();
 
-  app.get('/colors', function (req, res) {
+  models.get('/colors', function (req, res) {
     res.send(JSON.stringify([
-      { name: 'green' },
-      { name: 'blue'  },
-      { name: 'red'   }
+      { name: 'green' }
+    , { name: 'blue'  }
+    , { name: 'red'   }
     ]));
   });
 
-  app.put('/colors/:name', function (req, res) {
+  models.put('/colors/:name', function (req, res) {
     console.log('saving %s', req.params.name);
     res.send();
   });
+
+  return models;
 };
