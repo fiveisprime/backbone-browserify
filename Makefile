@@ -1,4 +1,4 @@
-SRC = index.js $(wildcard client-src/*.js) $(wildcard client-src/views/*.js)
+SRC = index.js $(wildcard client/*.js) $(wildcard client/views/*.js)
 
 all: test client minify
 
@@ -9,7 +9,7 @@ test: $(SRC)
 
 client:
 	@node_modules/.bin/browserify \
-		--entry client-src/app.js \
+		--entry client/app.js \
 		--transform browserify-handlebars \
 		--outfile public/js/app.js
 
@@ -18,7 +18,7 @@ minify:
 		--mangle \
 		--output public/js/app.min.js
 
-.PONY: all
-.PONY: test
-.PONY: client
-.PONY: minify
+.PHONY: all
+.PHONY: test
+.PHONY: client
+.PHONY: minify

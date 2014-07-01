@@ -12,12 +12,12 @@
   "devDependencies": {
     "underscore": "1.6.0",
     "backbone": "1.1.2",
-    "jquery": "2.1.0",
-    "browserify": "3.32.0",
-    "jshint": "2.4.4",
+    "jquery": "2.1.1",
+    "browserify": "4.2.0",
+    "jshint": "2.5.1",
     "handlebars": "1.2.0",
     "browserify-handlebars": "0.2.0",
-    "uglify-js": "2.4.12"
+    "uglify-js": "2.4.14"
   },
   "dependencies": {
     "express": "3.4.8"
